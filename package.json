@@ -1,0 +1,22 @@
+{
+  "name": "sdet-automation-testing-projects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/globalghost1/PythonSDET---Automation-Testing-Project-main.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/globalghost1/PythonSDET---Automation-Testing-Project-main/issues"
+  },
+  "homepage": "https://github.com/globalghost1/PythonSDET---Automation-Testing-Project-main#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.46.1",
+    "@types/node": "^22.5.0"
+  }
+}
