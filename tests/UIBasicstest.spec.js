@@ -1,4 +1,4 @@
-const {test} = require('@playwright/test');
+const {test, expect} = require('@playwright/test');
 const exp = require('constants');
 
 
@@ -51,3 +51,39 @@ test ("Wrong Credentials", async ({page}) => {
         console.log(allTitles);
     });
 
+test.only ("UI Controls", async ({page}) => {   
+
+    await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+    const userName = page.locator("#username");
+    const signIn = page.locator("#signInBtn");
+    const dropdown = page.locator("select.form-control");
+    const documentLink = page.locator("[href*='document-request']");
+    dropdown.selectOption("consult");
+    await page.locator(".radiotextsty").last().click();
+    await page.locator("#okayBtn").click();
+    //console.log (await page.locator("radiotextsty").last().isChecked());
+    await expect (page.locator(".radiotextsty").last()).toBeChecked();
+    await page.locator("#terms").click();
+    await expect(page.locator("#terms")).toBeChecked();
+    await page.locator("#terms").uncheck();
+    expect (await page.locator("#terms").isChecked()).toBeFalsy();
+    await expect(documentLink).toHaveAttribute("class","blinkingText");
+
+
+
+    //await page.pause();
+});
+
+test ("@Child Window hadling", async ({browser}) => 
+{
+    const Context = await browser.newContext();
+    const page = await Context.newPage();
+    await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+    const documentLink = page.locator("[href*='document-request']");
+
+    Promise.all(
+    [
+    Context.waitForEvent('page'),   //listen for any new page pending,rejected,fulfilled
+    documentLink.click(),           //listen for any new page opened
+
+    ])
