@@ -16,11 +16,13 @@ test ("@WC Client App Login", async ({page})=> {
     const count = await products.count();
     
     for(let i =0; i< count; i++i)
-    {
+{
      if(await products.nth(i).locator("b").textContent() === productName)
     {
         //Add to cart
+        await products.nth(i).locator("text=Add to Cart").click();
+        break;
     }
 
-    }
+}
 
