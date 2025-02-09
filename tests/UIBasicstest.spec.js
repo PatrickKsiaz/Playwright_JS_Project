@@ -51,7 +51,7 @@ test ("Wrong Credentials", async ({page}) => {
         console.log(allTitles);
     });
 
-test.only ("UI Controls", async ({page}) => {   
+test ("UI Controls", async ({page}) => {   
 
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
     const userName = page.locator("#username");
@@ -74,16 +74,18 @@ test.only ("UI Controls", async ({page}) => {
     //await page.pause();
 });
 
-test ("@Child Window hadling", async ({browser}) => 
+test.only ("@Child Window hadling", async ({browser}) => 
 {
     const Context = await browser.newContext();
     const page = await Context.newPage();
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
     const documentLink = page.locator("[href*='document-request']");
 
-    Promise.all(
+    const [newPage]=await Promise.all(
     [
     Context.waitForEvent('page'),   //listen for any new page pending,rejected,fulfilled
     documentLink.click(),           //listen for any new page opened
-
-    ])
+    ]) //new page is opened 
+    text = await newPage.locator(".red").textContent();
+    console.log(text);
+});
