@@ -81,11 +81,17 @@ test.only ("@Child Window hadling", async ({browser}) =>
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
     const documentLink = page.locator("[href*='document-request']");
 
-    const [newPage]=await Promise.all(
+    const [newPage]= await Promise.all(
     [
     Context.waitForEvent('page'),   //listen for any new page pending,rejected,fulfilled
-    documentLink.click(),           //listen for any new page opened
+    await documentLink.click(),           //listen for any new page opened
     ]) //new page is opened 
-    text = await newPage.locator(".red").textContent();
-    console.log(text);
+    const text = await newPage.locator(".red").textContent();
+    const arrayText = text.split("@")
+    const domain = arrayText[1].split(" ")[0]
+    console.log(domain);
+    await page.locator("#username").fill(domain);
+    await page.pause();
+    console.log(await page.locator("#username").textContent());
+
 });
