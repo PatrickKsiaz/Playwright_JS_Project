@@ -69,8 +69,6 @@ test ("UI Controls", async ({page}) => {
     expect (await page.locator("#terms").isChecked()).toBeFalsy();
     await expect(documentLink).toHaveAttribute("class","blinkingText");
 
-
-
     //await page.pause();
 });
 
@@ -95,3 +93,4 @@ test.only ("@Child Window hadling", async ({browser}) =>
     console.log(await page.locator("#username").textContent());
 
 });
+
