@@ -1,17 +1,19 @@
 const {test, expect} = require('@playwright/test');
 
-test("@WC Client App Login", async ({page})=> {
+test("@Gen Client App Login", async ({page})=> {
 
-    const productName = "Zara Coat 4";
+    //js file - Login js, DashboardPage
+    const email = "anshika@gmail.com"
+    const productName = "Zara Coat 3";
     const products = page.locator(".card-body");
     await page.goto("https://rahulshettyacademy.com/client");
-    await page.locator("#userEmail").fill("anshika@gmail.com")
+    await page.locator("#userEmail").fill(email);
     await page.locator("#userPassword").fill("Iamking@000")
     await page.locator("[value='Login']").click();
     await page.waitForLoadState('networkidle');
     const titles =  await page.locator("card-body b").allTextContents();
     console.log(titles);
-    //Zara Coat 4
+    //Zara Coat 3
     const count = await products.count();
     for(let i=0; i < count; ++i)
     {
@@ -41,6 +43,9 @@ const text = await dropdown.locator("button").nth(i).textContent();
         break;
     }
 }
-expect.(page.locator(".user__name ['[type=]'")).toHaveText("anshika@gmail.com");
-
+expect (page.locator(".user__name ['[type='text']").first()).toHaveText(email);
+await page.locator(".action__submit").click();
+expect(await page.locator(".hero-primary")).toHaveText(" Thankyou for the order.");
+const orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+console.log(orderId);
 });
